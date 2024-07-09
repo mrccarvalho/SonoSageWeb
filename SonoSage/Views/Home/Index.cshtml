@@ -1,0 +1,47 @@
+﻿@model SonoSage.ViewModels.RelatorioVm
+
+
+@{ ViewData["Title"] = "Home"; }
+
+<script src="~/js/gauge.min.js"></script>
+
+
+<div class="row">
+    <div class="col-lg-3">
+
+<div class="alert alert-info" style="width: 185px; margin-bottom: 15px; padding: 5px; text-align: center">@Model.LastSet.DecibelString ; dB</div>
+       
+           
+            <span style="font-style: italic">Em @Model.LastSet.DateOnlyString @Model.LastSet.TimeOnlyString</span>
+        <canvas data-type="radial-gauge"
+                data-major-ticks="0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140"
+                data-title="Decibelímetro"
+                data-units="dB"
+                data-width="200"
+                data-height="200"
+                data-value-int="0"
+                data-value-dec="0"
+                data-value="@Model.LastSet.Db"
+                data-min-value="0"
+                data-max-value="140"
+                data-highlights="false"></canvas>
+
+    </div>
+    <div class="col-lg-9">
+        <div id="chart_div" style="width: 100%; min-height: 500px"></div>
+    </div>
+
+   
+</div>
+
+
+
+@section Scripts {
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', { 'packages': ['line'] });
+        google.charts.setOnLoadCallback(function () { drawChart(); });
+        $(window).resize(function () { drawChart(); });
+    </script>
+
+}
