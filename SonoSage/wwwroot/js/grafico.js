@@ -12,13 +12,14 @@ function drawChart() {
 
                 // create blank data table
                 var data = new google.visualization.DataTable();
+               
                 // parse json
                 jsonData.forEach(function (jsonRow, indexRow) {
                     // add columns
                     if (indexRow === 0) {
                         for (var column in jsonRow) {
                             if (column === 'timeOnlyString') {
-                                data.addColumn('string', 'Hora do dia');
+                                data.addColumn('string', 'HORAS');
                             } else if (column === 'decibelString') {
                                 data.addColumn('number', 'dB');
 
@@ -40,7 +41,10 @@ function drawChart() {
                         data.addRow(dataRow);
                     }
                 });
-                var options = { chart: { title: 'Últimas 24 horas' } };
+                var options = {
+                    chart: { title: '' },
+                    colors: ['#e2431e']
+                };
                 var chart = new google.charts.Line(document.getElementById('chart_div'));
                 chart.draw(data, options);
             }
