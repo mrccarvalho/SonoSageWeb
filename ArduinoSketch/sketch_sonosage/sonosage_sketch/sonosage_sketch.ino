@@ -16,7 +16,7 @@ int db;
 
 const long postDuracao = 10000; //intervalo entre cada envio para a base de dados
 unsigned long ultimoPost = 0;
-bool conectado = true;
+bool conectado = false;
   WiFiClient client;
 //---------------------
 
@@ -162,6 +162,12 @@ void inserir_leituras(int decibel) {
   Serial.print(" - na porta ");
   Serial.println(postPorta);  
   
+    // class WiFiClient para criar ligações TCP
+  //É aqui  que faz a ligação com o ip do servidor na porta de destino
+  if (!client.connect(host, postPorta)) {
+    Serial.println(" - Ligação ao host falhou!");
+    return;
+  }
 
   // Criar o URI para o request/pedido
   String url = String("/Home/InserirLeituras") + String("?dB=") + db;
@@ -198,10 +204,6 @@ void setup() {
   // class WiFiClient para criar ligações TCP
   //É aqui  que faz a ligação com o ip do servidor na porta de destino
 
-  if (!client.connect(host, postPorta)) {
-    Serial.println(" - Ligação ao host falhou!");
-    return;
-  }
 
   pinMode(SENSOR_PIN, INPUT);
   pinMode(RGB_LED_RED_PIN, OUTPUT);
@@ -222,7 +224,7 @@ void setup() {
 
 
 void loop() {
- if (conectado) {
+ if (client.connect(host, postPorta)) {
    int decibel =  obterLeituras();
     unsigned long diff = millis() - ultimoPost;
     if (diff > postDuracao) {
@@ -230,7 +232,6 @@ void loop() {
       ultimoPost = millis();
     }
   } else {
-
     Serial.println(" - Não conseguiu conectar-se ao host!");
     delay(1000);
   }
