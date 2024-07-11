@@ -32,6 +32,15 @@ namespace SonoSage.Controllers
             return View(vm);
         }
 
+        public IActionResult Grafico()
+        {
+            var vm = new RelatorioVm { };
+
+            vm.LastSet = MaisRecentes();
+
+            return View(vm);
+        }
+
         /// <summary>
         /// devolve leituras mais recentes
         /// </summary>
@@ -84,7 +93,7 @@ namespace SonoSage.Controllers
         /// <returns></returns>
         public ActionResult InserirLeituras(int? dB)
         {
-            var resultado = "Ok";
+            var resultado = "Método ok";
             var dataLeitura = DateTime.Now;
             try
             {

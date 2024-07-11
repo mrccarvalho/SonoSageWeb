@@ -43,7 +43,7 @@ function drawChart() {
                 });
                 var options = {
                     chart: { title: '' },
-                    colors: ['#e2431e']
+                    colors: [ 'green']
                 };
                 var chart = new google.charts.Line(document.getElementById('chart_div'));
                 chart.draw(data, options);

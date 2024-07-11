@@ -9,14 +9,15 @@ char ssid[] = "Galaxy-RC";          //  SSID (name) /
 char pass[] = "ttqo3746";   //  senha 
 int status = WL_IDLE_STATUS;                     // Wifi radio's status
 //  site URL para onde serão enviados os dados
-char* host = "192.168.177.243";
-const int postPorta = 8084;
+char* host = "46.105.31.193";
+const int postPorta = 8080;
 // Variáveis globais que irão armazenar os valores dos sensores
 int db;
 
-const long postDuracao = 20000; //intervalo entre cada envio para a base de dados
+const long postDuracao = 10000; //intervalo entre cada envio para a base de dados
 unsigned long ultimoPost = 0;
 bool conectado = true;
+  WiFiClient client;
 //---------------------
 
 const int sampleWindow = 50;
@@ -161,13 +162,6 @@ void inserir_leituras(int decibel) {
   Serial.print(" - na porta ");
   Serial.println(postPorta);  
   
-  // class WiFiClient para criar ligações TCP
-  //É aqui  que faz a ligação com o ip do servidor na porta de destino
-  WiFiClient client;
-  if (!client.connect(host, postPorta)) {
-    Serial.println(" - Ligação ao host falhou!");
-    return;
-  }
 
   // Criar o URI para o request/pedido
   String url = String("/Home/InserirLeituras") + String("?dB=") + db;
@@ -199,6 +193,16 @@ void inserir_leituras(int decibel) {
 void setup() {
   //chama a função para conectar ao wifi
   wificonnect(ssid, pass);
+
+  
+  // class WiFiClient para criar ligações TCP
+  //É aqui  que faz a ligação com o ip do servidor na porta de destino
+
+  if (!client.connect(host, postPorta)) {
+    Serial.println(" - Ligação ao host falhou!");
+    return;
+  }
+
   pinMode(SENSOR_PIN, INPUT);
   pinMode(RGB_LED_RED_PIN, OUTPUT);
   pinMode(RGB_LED_GREEN_PIN, OUTPUT);

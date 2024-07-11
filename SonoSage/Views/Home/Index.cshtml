@@ -5,45 +5,32 @@
 
 <script src="~/js/gauge.min.js"></script>
 
-
-
-
+<br />
+<br />
+<br />
+<div class="container">
 <div class="row">
-    <div class="col-lg-3">
-
-
-
+        <div class="col-lg-10 text-center">
     </div>
-    <div class="col-lg-9">
- 
-    </div>
-
-
 </div>
 <div class="row">
-    <div class="col-lg-3">
-            <span style="font-style: italic">Em @Model.LastSet.DateOnlyString @Model.LastSet.TimeOnlyString</span>
+    <div class="col-lg-10 text-center">
+        <span style="font-style:normal">@Model.LastSet.DateOnlyString @Model.LastSet.TimeOnlyString</span>
         <canvas data-type="radial-gauge"
                 data-major-ticks="0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140"
                 data-title="Decibelímetro"
                 data-units="dB"
-                data-width="300"
-                data-height="300"
+                data-width="500"
+                data-height="500"
                 data-value-int="0"
                 data-value-dec="0"
                 data-value="@Model.LastSet.Db"
                 data-min-value="0"
                 data-max-value="140"
                 data-highlights="true"></canvas>
-
     </div>
-    <div class="col-lg-9">
-        <div id="chart_div" style="width: 100%; min-height: 500px"></div>
-    </div>
-
-   
 </div>
-
+</div>
 
 
 @section Scripts {
