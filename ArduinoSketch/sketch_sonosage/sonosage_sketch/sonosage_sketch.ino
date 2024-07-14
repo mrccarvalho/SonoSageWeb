@@ -200,9 +200,6 @@ void setup() {
   //chama a função para conectar ao wifi
   wificonnect(ssid, pass);
 
-  
-  // class WiFiClient para criar ligações TCP
-  //É aqui  que faz a ligação com o ip do servidor na porta de destino
 
 
   pinMode(SENSOR_PIN, INPUT);
